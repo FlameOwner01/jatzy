@@ -1,0 +1,33 @@
+.dice-roll{
+    width: 100px;
+    height: 50px;
+    float: right;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: crimson;
+    font-weight: bolder;
+    margin-right: 60%;
+    background-color: yellowgreen;
+}
+
+.logo{
+    width: 200px;
+    margin-left: 30%;
+}
+
+.green{
+    background-color: green;
+}
+.orange{
+    background-color: orange;
+}
+.btn{
+    width: 100px;
+    height: 40px;
+    color: aqua;
+    background-color: red;
+}
+.one{
+    width: 100%;
+    color: black;
+    margin-left: 30%;
+}
