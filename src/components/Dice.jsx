@@ -15,9 +15,10 @@ margin:5px;
 cursor:pointer;
 `
 
- const Dice = ({ rolls, hold, id, bg}) => {
+
+ const Dice = ({ rolls, hold, id, bg, active}) => {
     const { GetData, setGetData } = useContext(DicesContext);
-    let [style, setStyle] = useState(bg);
+    let [style, setStyle] = useState(bg);    
 
     const setHold = (it) =>   {
         let data = GetData;
@@ -29,14 +30,15 @@ cursor:pointer;
             id: it,
             bg: data[it].bg === "orange" ? "green" : "orange"
         }
+
         setStyle(data[it].bg);
-        
         setGetData(data);
     }
-    
+
     return (
-        <DiceStyle hold={hold} className={style}  onClick={() =>{
-            setHold(id);
+        
+        <DiceStyle hold={hold} className={[style, active ? "roll" : "div"]}  onClick={() =>{
+            setHold(id); 
         }}>{rolls} </DiceStyle>
     )
     

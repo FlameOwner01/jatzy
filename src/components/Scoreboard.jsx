@@ -20,7 +20,6 @@ tr:nth-child(even) {
 const Scoreboard = () => {
   
   const { GetData, setGetData } = useContext(DicesContext);
-  console.log("Data: ", GetData);
   
   const  [values, setValues] = useState({
       one: null,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DicesContext } from "./Diceprovider";
 import Dice from "./Dice";
 
@@ -12,11 +12,10 @@ const firstRoll= (x, setGetData, GetData) =>{
             bg: "orange"
         }
     }
-   
     setGetData(roll);
 }
 
-const diceRoll = (x, setGetData, GetData) => {
+const diceRoll = (x, setGetData, GetData, setActive, active) => {
     let roll = [GetData];
     let one = GetData;
     for(let i = 0; i<x ; i++){
@@ -37,24 +36,28 @@ const diceRoll = (x, setGetData, GetData) => {
         }
         
     }
-
+    setActive(!active);
     setGetData(roll);
+    
 };
 
 
 const Dices = ({ NumberOfDices }) => {
     const { GetData, setGetData } = useContext(DicesContext);
-    
+    const [active, setActive] = useState(true); 
 useEffect(()=>{
     firstRoll(NumberOfDices, setGetData, GetData);
 }, []);
+
     return (
         <>
+
         {GetData.map(({ Roll, hold, id, bg }) => (
         //    console.log("roll: ", Roll, " hold: ", hold, " id:" , id)
-          <Dice rolls={Roll} hold={hold} id={id} key= {id} bg = {bg}/>
+          <Dice rolls={Roll} hold={hold} id={id} key= {id} bg = {bg} active = {active}/>
         ))}
-            <button className='dice-roll' onClick={() => diceRoll(NumberOfDices, setGetData, GetData)}>Roll Dices</button>
+       
+            <button className='dice-roll' onClick={() => diceRoll(NumberOfDices, setGetData, GetData, setActive, active)}>Roll Dices</button>
         </>
     );
 }

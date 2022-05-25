@@ -16,9 +16,20 @@
 
 .green{
     background-color: green;
+
 }
 .orange{
     background-color: orange;
+    
+}
+.div{
+    margin-left: 45%;
+}
+.roll{
+    margin-left: 45%;
+    transform-style: preserve-3d;
+    transition: transform 1.5s ease-out;
+    transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
 }
 .btn{
     width: 100px;
@@ -30,4 +41,5 @@
     width: 100%;
     color: black;
     margin-left: 30%;
+    
 }
