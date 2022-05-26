@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { DicesContext } from "./Diceprovider";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 
 const DiceStyle = styled.div`
@@ -16,10 +16,19 @@ cursor:pointer;
 `
 
 
- const Dice = ({ rolls, hold, id, bg, active}) => {
+ const Dice = ({ rolls, hold, id, bg, active, newRound}) => {
     const { GetData, setGetData } = useContext(DicesContext);
     let [style, setStyle] = useState(bg);    
 
+    useEffect(()=>{
+        let data = GetData;
+        data[id] ={
+            Roll: data[id].Roll,
+            hold: data[id].hold,
+            id: id,
+            bg: "orange"
+        }
+    }, [newRound])
     const setHold = (it) =>   {
         let data = GetData;
         
@@ -28,7 +37,7 @@ cursor:pointer;
             Roll: data[it].Roll,
             hold: !data[it].hold,
             id: it,
-            bg: data[it].bg === "orange" ? "green" : "orange"
+            bg: data[it].bg === "green" ? "orange" : "green"
         }
 
         setStyle(data[it].bg);
@@ -37,7 +46,7 @@ cursor:pointer;
 
     return (
         
-        <DiceStyle hold={hold} className={[style, active ? "roll" : "div"]}  onClick={() =>{
+        <DiceStyle hold={hold} className={[style, active && !hold ? "roll" : "div"]} onClick={() =>{
             setHold(id); 
         }}>{rolls} </DiceStyle>
     )

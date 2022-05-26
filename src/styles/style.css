@@ -3,10 +3,12 @@
     height: 50px;
     float: right;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: crimson;
+    color:whitesmoke;
     font-weight: bolder;
     margin-right: 60%;
-    background-color: yellowgreen;
+    background-color: rgb(255, 90, 30);
+    border-radius: 5%;
+    border:2px solid black;
 }
 
 .logo{
@@ -19,7 +21,7 @@
 
 }
 .orange{
-    background-color: orange;
+    background-color: rgb(255, 136, 0);
     
 }
 .div{
@@ -31,15 +33,23 @@
     transition: transform 1.5s ease-out;
     transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
 }
-.btn{
-    width: 100px;
-    height: 40px;
-    color: aqua;
-    background-color: red;
-}
+
 .one{
     width: 100%;
     color: black;
     margin-left: 30%;
     
+}
+
+.round{
+    border:2px solid black;
+    display: inline-block;
+    color: whitesmoke;
+    background-color: rgb(255, 90, 30);
+    margin-top: 50px !important;
+    margin-left: 45%;
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 5%;
 }

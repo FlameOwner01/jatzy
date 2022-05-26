@@ -2,7 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { DicesContext } from "./Diceprovider";
 import Dice from "./Dice";
 
+
 const firstRoll= (x, setGetData, GetData) =>{
+
+
     let roll = [GetData];
     for(let i = 0; i<x ; i++){
         roll[i] = {
@@ -15,7 +18,10 @@ const firstRoll= (x, setGetData, GetData) =>{
     setGetData(roll);
 }
 
-const diceRoll = (x, setGetData, GetData, setActive, active) => {
+const diceRoll = (x, setGetData, GetData, setActive, active, setTurn, turn) => {
+    if(turn === 2){
+        return;
+    }
     let roll = [GetData];
     let one = GetData;
     for(let i = 0; i<x ; i++){
@@ -38,26 +44,51 @@ const diceRoll = (x, setGetData, GetData, setActive, active) => {
     }
     setActive(!active);
     setGetData(roll);
+    setTurn(turn+1);
+    
+    
     
 };
 
 
-const Dices = ({ NumberOfDices }) => {
+const Dices = ({ NumberOfDices, round, turn, setTurn, newRound, setNewRound }) => {
     const { GetData, setGetData } = useContext(DicesContext);
-    const [active, setActive] = useState(true); 
-useEffect(()=>{
-    firstRoll(NumberOfDices, setGetData, GetData);
-}, []);
+    const [active, setActive] = useState(false); 
 
+useEffect(()=>{
+    setTimeout(() => {
+        if (active === false) {
+          setActive(true);
+        }
+      }, 60);
+    firstRoll(NumberOfDices, setGetData, GetData);
+  
+}, []);
+useEffect(() => {
+    setTimeout(() => {
+      if (active === true) {
+        setActive(false);
+      }
+    }, 1500);
+  }, [active]);
+  useEffect(()=> {
+    if(newRound){
+        firstRoll(NumberOfDices, setGetData, GetData);
+        setNewRound(false);
+    }
+}, [newRound])
     return (
         <>
 
         {GetData.map(({ Roll, hold, id, bg }) => (
-        //    console.log("roll: ", Roll, " hold: ", hold, " id:" , id)
-          <Dice rolls={Roll} hold={hold} id={id} key= {id} bg = {bg} active = {active}/>
+          <Dice rolls={Roll} hold={hold} id={id} key= {id} bg = {bg} active = {active} newRound={newRound}/>
         ))}
        
-            <button className='dice-roll' onClick={() => diceRoll(NumberOfDices, setGetData, GetData, setActive, active)}>Roll Dices</button>
+            <button className='dice-roll' onClick={() => diceRoll(NumberOfDices, setGetData, GetData, setActive, active, setTurn, turn)}>Roll Dices
+            Turn : {turn+1}</button>
+            <button className='round'>
+            Round: {round+1}
+            </button>
         </>
     );
 }
