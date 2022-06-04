@@ -20,15 +20,7 @@ cursor:pointer;
     const { GetData, setGetData } = useContext(DicesContext);
     let [style, setStyle] = useState(bg);    
 
-    useEffect(()=>{
-        let data = GetData;
-        data[id] ={
-            Roll: data[id].Roll,
-            hold: data[id].hold,
-            id: id,
-            bg: "orange"
-        }
-    }, [newRound])
+    
     const setHold = (it) =>   {
         let data = GetData;
         
@@ -38,12 +30,29 @@ cursor:pointer;
             hold: !data[it].hold,
             id: it,
             bg: data[it].bg === "green" ? "orange" : "green"
-        }
+        };
 
+        
         setStyle(data[it].bg);
         setGetData(data);
     }
+    let data = GetData;
 
+    useEffect(()=>{
+        
+        data[id] ={
+            Roll: data[id].Roll,
+            hold: false,
+            id: id,
+            bg: "orange"
+        }
+        setStyle("orange");
+        setGetData(data);
+        
+    }, [newRound]);
+        
+        
+       
     return (
         
         <DiceStyle hold={hold} className={[style, active && !hold ? "roll" : "div"]} onClick={() =>{
