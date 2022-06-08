@@ -17,8 +17,10 @@ tr:nth-child(even) {
 }
 `
 
-const Scoreboard = ({onPress}) => {
+const Scoreboard = ({onPress, newG, setNewG}) => {
+
   
+
   const { GetData, setGetData } = useContext(DicesContext);
 
   const  [values, setValues] = useState({
@@ -38,7 +40,38 @@ const Scoreboard = ({onPress}) => {
       sum: null
     
   }) 
- 
+  
+  useEffect(()=>{
+    
+    if(newG){
+      localStorage.setItem("Total score", JSON.stringify(values.sum));
+      let hs = parseInt(localStorage.getItem("Total score"));
+      localStorage.setItem("High score", hs);
+    if(values.sum > hs){
+      hs = values.sum;
+      localStorage.setItem("High score", hs);
+    }
+      setValues({
+        one: null,
+        two: null,
+        three: null,
+        four: null,
+        five: null,
+        six: null,
+        trilling: null,
+        poker: null,
+        smstr: null,
+        bigstr: null,
+        house: null,
+        yatzy: null,
+        chance: null,
+        sum: null
+      
+    })
+      setNewG(false);
+    }
+  }, [newG])
+
   const setOne = () => {
     
     if(values.one === null){
