@@ -4,8 +4,7 @@ import { RoundContext } from '../App';
 import Dice from "./Dice";
 
 
-const firstRoll= (x, setGetData, GetData) =>{
-
+const firstRoll= (x, setGetData, GetData ) =>{
 
     let roll = [GetData];
     for(let i = 0; i<x ; i++){
@@ -18,16 +17,9 @@ const firstRoll= (x, setGetData, GetData) =>{
     }
     setGetData(roll);
 }
-const newR = (newRound) =>{
 
-    if(newRound)
-    return true;
-    return false;
-}
-const diceRoll = (round, setGetData, GetData, setActive, active, setTurn, newRound) => {
-    if(round === 12 && newR(newRound)){
-        return;
-    }
+const diceRoll = (round, setGetData, GetData, setActive, active) => {
+
     let roll = [GetData];
     let one = GetData;
 
@@ -56,14 +48,15 @@ const diceRoll = (round, setGetData, GetData, setActive, active, setTurn, newRou
 };
 
 
-const Dices = ({ NumberOfDices, round, turn, setTurn, newGame }) => {
+const Dices = ({ NumberOfDices, round, turn, setTurn, newGame, newG }) => {
     const { GetData, setGetData } = useContext(DicesContext);
     const { newRound, setNewRound} = useContext(RoundContext);
     const [active, setActive] = useState(false); 
     const [highS, setHighS] = useState(null);
+
 useEffect(() =>{
     setHighS(localStorage.getItem("High score"));
-})
+}, [newG]);
 
 useEffect(()=>{
     setTimeout(() => {
@@ -71,7 +64,7 @@ useEffect(()=>{
           setActive(true);
         }
       }, 60);
-    firstRoll(NumberOfDices, setGetData, GetData);
+    firstRoll(NumberOfDices, setGetData, GetData, round);
   
 }, []);
 useEffect(() => {
@@ -83,22 +76,26 @@ useEffect(() => {
   }, [active]);
   useEffect(()=> {
     if(newRound){
-        firstRoll(NumberOfDices, setGetData, GetData);
+        firstRoll(NumberOfDices, setGetData, GetData, round);
         setNewRound(false);
     }
 }, [newRound])
     return (
+        <div className='top-bar'>
+             <button className='highs'>High score <br/> {highS}</button>
         <div className="dices">
-                <button className='highs'>High score <br/> {highS}</button>
+               
         {GetData.map(({ Roll, hold, id, bg }) => (
           <Dice rolls={Roll} hold={hold} id={id} key= {id} bg = {bg} active = {active} newRound={newRound} />
         ))}
-       
+        </div>
+            
+            
             <button className='dice-roll' onClick={() =>{
                 if(turn === 2){
                     return;
                 }
-             diceRoll(round, setGetData, GetData, setActive, active, setTurn, newRound);
+             diceRoll(round, setGetData, GetData, setActive, active);
              setTurn(turn+1);
             }
             }
@@ -108,10 +105,9 @@ useEffect(() => {
             <button className='round'>
             Round: {round+1}
             </button>
-            {
-                round === 13 ? <button className='newG' onClick={() =>{newGame()}}>New Game</button> : null
-            }
+             <button className='newG' onClick={() =>{newGame()}}>New Game</button>
             
+           
         </div>
     );
 }

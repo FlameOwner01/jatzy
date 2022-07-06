@@ -17,16 +17,11 @@ function App() {
   const value = useMemo(() =>({newRound, setNewRound}), [newRound, setNewRound]);  
 
   const onPress = () =>{
-   
-    if(round === 12){
-      setTurn(2);
-      setNewRound(true);
-      setRound(round+1);
-    }else {
+
       setRound(round+1);
       setTurn(0);
       setNewRound(true);  
-    }
+    
   } 
   const newGame = () =>{
     setTurn(0);
@@ -40,10 +35,8 @@ function App() {
       <RoundContext.Provider value={value}>
         <h1>Yatzy</h1>
         <img src ={logo} alt="logo" className="logo"/>
-        <Dices NumberOfDices={NumberOfDices} round = {round} turn={turn} setTurn={setTurn} newGame={newGame}/>
-        <Scoareboard onPress={onPress} newG={newG} setNewG={setNewG}/>
-        
-          
+        <Dices NumberOfDices={NumberOfDices} round = {round} turn={turn} setTurn={setTurn} newGame={newGame} newG={newG}/>
+        <Scoareboard onPress={onPress} newG={newG} setNewG={setNewG}/>   
         </RoundContext.Provider>
       </Diceprovider>
     </div>

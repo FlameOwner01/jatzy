@@ -47,8 +47,9 @@ const Scoreboard = ({onPress, newG, setNewG}) => {
       localStorage.setItem("Total score", JSON.stringify(values.sum));
       let hs = parseInt(localStorage.getItem("Total score"));
       localStorage.setItem("High score", hs);
-    if(values.sum > hs){
-      hs = values.sum;
+      let newHs = localStorage.getItem("Total score");
+    if(newHs > hs){
+      hs = newHs;
       localStorage.setItem("High score", hs);
     }
       setValues({
@@ -68,8 +69,8 @@ const Scoreboard = ({onPress, newG, setNewG}) => {
         sum: null
       
     })
-      setNewG(false);
     }
+    setNewG(false);
   }, [newG])
 
   const setOne = () => {
