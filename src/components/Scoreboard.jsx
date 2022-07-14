@@ -44,14 +44,12 @@ const Scoreboard = ({onPress, newG, setNewG}) => {
   useEffect(()=>{
     
     if(newG){
-      localStorage.setItem("Total score", JSON.stringify(values.sum));
-      let hs = parseInt(localStorage.getItem("Total score"));
-      localStorage.setItem("High score", hs);
-      let newHs = localStorage.getItem("Total score");
-    if(newHs > hs){
-      hs = newHs;
-      localStorage.setItem("High score", hs);
-    }
+      let hs = values.sum;
+      let oldHs = localStorage.getItem("High score");
+      if(oldHs < hs){
+        localStorage.setItem("High score", hs);
+      }
+
       setValues({
         one: null,
         two: null,
@@ -67,9 +65,9 @@ const Scoreboard = ({onPress, newG, setNewG}) => {
         yatzy: null,
         chance: null,
         sum: null
-      
     })
     }
+
     setNewG(false);
   }, [newG])
 
@@ -206,9 +204,6 @@ const setTrilling = () =>{
       )
     }
   }
-  useEffect(()=>{
-
-  }, [values])
 
   useEffect(()=>{
    
